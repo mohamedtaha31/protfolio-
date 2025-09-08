@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohamed Ali Taha | AI Engineer</title>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --header-bg: #1e293b;
+      --text-color: #f1f5f9;
+      --primary-color: #38bdf8;
+      --card-bg: #1e293b;
+      --btn-bg: #38bdf8;
+      --btn-text: #0f172a;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f1f5f9;
+      --header-bg: #ffffff;
+      --text-color: #0f172a;
+      --primary-color: #0ea5e9;
+      --card-bg: #e2e8f0;
+      --btn-bg: #0ea5e9;
+      --btn-text: #ffffff;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-color);
+      color: var(--text-color);
+      scroll-behavior: smooth;
+      transition: background 0.4s, color 0.4s;
+    }
+    header {
+      background: var(--header-bg);
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+    nav a {
+      color: var(--text-color);
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: var(--primary-color);
+    }
+    section {
+      padding: 3rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 2rem;
+    }
+    .about {
+      text-align: center;
+    }
+    .about img {
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      border: 4px solid var(--primary-color);
+    }
+    .about p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 700px;
+      margin: auto;
+    }
+    .skills, .projects, .contact {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      transition: transform 0.3s, background 0.4s;
+      opacity: 0; /* initial for animation */
+      transform: translateY(30px); /* initial for animation */
+    }
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s ease-out;
+    }
+    .card i {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-right: 0.5rem;
+    }
+        /* ====== Services ====== */
+    #services {
+      background: #112240;
+      border-radius: 10px;
+      padding: 60px 20px;
+    }
+
+    .services-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .service-card {
+      background: #0a192f;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s, background 0.3s;
+      border: 1px solid #233554;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      background: #172a45;
+    }
+
+    .service-card h3 {
+      margin-bottom: 15px;
+      color: #64ffda;
+      font-size: 1.3rem;
+    }
+
+    .service-card p {
+      color: #ccd6f6;
+      font-size: 0.95rem;
+    }
+    .progress-bar {
+      height: 10px;
+      background: #334155;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+    .progress {
+      height: 10px;
+      background: var(--primary-color);
+      width: 0;
+      transition: width 2s ease;
+    }
+    .progress.animate {
+      width: var(--width);
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: var(--header-bg);
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      font-weight: bold;
+      border-radius: 8px;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: var(--primary-color);
+      color: #fff;
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      color: var(--btn-text);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    #themeToggle {
+      background: var(--primary-color);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--btn-text);
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    #themeToggle:hover {
+      background: var(--btn-bg);
+      color: #fff;
+    }
+    @media(max-width: 600px){
+      .about img { width: 250px; height: 250px; }
+      nav a { margin: 0 0.5rem; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <header>
+    <h1>Mohamed Ali Taha</h1>
+    <div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#cv">CV</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="themeToggle">Toggle Theme</button>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <img src="profile.jpg" alt="Mohamed Ali Taha">
+    <h2>About Me</h2>
+    <p>
+      I am <b>Mohamed Ali Taha</b>, an AI Engineer passionate about building intelligent systems. 
+      I specialize in <b>Machine Learning, Deep Learning, NLP, and Computer Vision</b>. 
+      My focus is on solving real-world problems through data-driven solutions, combining strong 
+      programming skills in Python with solid foundations in mathematics and statistics. 
+      I am always eager to learn, collaborate, and apply AI to create meaningful impact.
+    </p>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="card"><i class="fab fa-python"></i><p><b>Python</b></p><div class="progress-bar"><div class="progress" data-width="95%"></div></div></div>
+      <div class="card"><i class="fas fa-robot"></i><p><b>Machine Learning</b></p><div class="progress-bar"><div class="progress" data-width="90%"></div></div></div>
+      <div class="card"><i class="fas fa-brain"></i><p><b>Deep Learning</b></p><div class="progress-bar"><div class="progress" data-width="85%"></div></div></div>
+      <div class="card"><i class="fas fa-table"></i><p><b>NumPy</b></p><div class="progress-bar"><div class="progress" data-width="88%"></div></div></div>
+      <div class="card"><i class="fas fa-database"></i><p><b>Pandas</b></p><div class="progress-bar"><div class="progress" data-width="90%"></div></div></div>
+      <div class="card"><i class="fas fa-comment-alt"></i><p><b>NLP</b></p><div class="progress-bar"><div class="progress" data-width="80%"></div></div></div>
+      <div class="card"><i class="fas fa-image"></i><p><b>Computer Vision</b></p><div class="progress-bar"><div class="progress" data-width="78%"></div></div></div>
+      <div class="card"><i class="fas fa-square-root-alt"></i><p><b>Math</b></p><div class="progress-bar"><div class="progress" data-width="85%"></div></div></div>
+      <div class="card"><i class="fas fa-chart-bar"></i><p><b>Seaborn</b></p><div class="progress-bar"><div class="progress" data-width="75%"></div></div></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <!-- Projects -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects">
+    <div class="card">
+      <img src="project1.jpg" alt="AI Chatbot" style="width:100%; border-radius:8px; margin-bottom:10px;">
+      <i class="fas fa-robot"></i>
+      <h3>AI Chatbot</h3>
+      <p>Built an intelligent chatbot using NLP and deep learning.</p>
+      <a href="#" target="_blank" class="btn">View Project</a>
+    </div>
+    <div class="card">
+      <img src="project2.jpg" alt="Computer Vision App" style="width:100%; border-radius:8px; margin-bottom:10px;">
+      <i class="fas fa-image"></i>
+      <h3>Computer Vision App</h3>
+      <p>Developed an image classification system using CNNs.</p>
+      <a href="#" target="_blank" class="btn">View Project</a>
+    </div>
+    <div class="card">
+      <img src="project3.jpg" alt="Predictive Analytics" style="width:100%; border-radius:8px; margin-bottom:10px;">
+      <i class="fas fa-chart-line"></i>
+      <h3>Predictive Analytics</h3>
+      <p>Created a predictive model for sales forecasting using ML algorithms.</p>
+      <a href="#" target="_blank" class="btn">View Project</a>
+    </div>
+  </div>
+</section>
+
+ <!-- ====== Services Section ====== -->
+  <section id="services">
+    <h2>Services</h2>
+    <div class="services-container">
+      <div class="service-card">
+        <h3>AI Model Development</h3>
+        <p>Designing, training, and deploying AI models tailored to real-world applications, including predictive analytics and computer vision.</p>
+      </div>
+      <div class="service-card">
+        <h3>Data Analysis & Preprocessing</h3>
+        <p>Cleaning, transforming, and analyzing datasets to extract meaningful insights and prepare them for machine learning workflows.</p>
+      </div>
+      <div class="service-card">
+        <h3>Web Development</h3>
+        <p>Building modern, responsive, and user-friendly websites using HTML, CSS, and JavaScript.</p>
+      </div>
+      <div class="service-card">
+        <h3>Automation Solutions</h3>
+        <p>Creating scripts and tools to automate repetitive tasks, improving efficiency and productivity.</p>
+      </div>
+    </div>
+  </section>
+  <!-- CV Section -->
+  <section id="cv">
+    <h2>My CV</h2>
+    <div class="card" style="text-align:center">
+      <p>You can download my full CV or view it online.</p>
+      <a href="Mohamed Ali Taha cv[1] (4).pdf" target="_blank" class="btn">📄 Download CV</a>
+      <a href="cv-viewer.html" target="_blank" class="btn">👀 View Online CV</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contact">
+      <div class="card">
+        <p><b>Email:</b> mt012011010@gmail.com</p>
+        <p><b>Phone:</b> 01270207800</p>
+        <p><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/MohamedAliTaha" target="_blank" style="color:var(--primary-color);">linkedin.com/in/MohamedAliTaha</a></p>
+        <p><b>Location:</b> Alsharqia, Egypt</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Mohamed Ali Taha. All rights reserved.</p>
+  </footer>
+
+  <button id="backToTop">↑</button>
+
+  <script>
+    // Progress bar animation
+    const progressBars = document.querySelectorAll('.progress');
+    window.addEventListener('scroll', () => {
+      const triggerBottom = window.innerHeight * 0.85;
+      progressBars.forEach(bar => {
+        const barTop = bar.getBoundingClientRect().top;
+        if (barTop < triggerBottom && !bar.classList.contains('animate')) {
+          bar.style.setProperty('--width', bar.dataset.width);
+          bar.classList.add('animate');
+        }
+      });
+    });
+
+    // Back to top button
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.style.opacity = window.scrollY > 300 ? '1' : '0';
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.body.getAttribute('data-theme');
+      document.body.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    // Scroll animations
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
